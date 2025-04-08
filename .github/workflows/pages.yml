@@ -48,3 +48,31 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  push-to-gh-pages:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0  # 获取完整历史记录
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Copy files to gh-pages branch
+        run: |
+          # 切换到 gh-pages 分支（如果不存在则创建）
+          git checkout --orphan gh-pages
+          git reset --hard
+
+          # 复制构建后的文件（public/ 目录内容）
+          cp -r public/* ./
+
+          # 提交更改
+          git add -A
+          git commit -m "Deploy to gh-pages (via GitHub Actions)"
+          git push origin gh-pages --force
