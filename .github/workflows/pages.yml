@@ -58,6 +58,8 @@ jobs:
   push-to-gh-pages:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -84,5 +86,5 @@ jobs:
 
           # 提交更改
           git add -A
-          git commit -m "Deploy to gh-pages (via GitHub Actions)"
+          git commit -m "Deploy to gh-pages: $(date +'%Y-%m-%d %H:%M:%S' (via GitHub Actions)"
           git push origin gh-pages --force
