@@ -69,8 +69,8 @@ jobs:
           git checkout --orphan gh-pages
           git reset --hard
 
-          # 复制构建后的文件（public/ 目录内容）
-          cp -r public/* ./
+          # 复制构建后的文件（build/ 目录内容）
+          cp -r build/* ./
 
           # 提交更改
           git add -A
