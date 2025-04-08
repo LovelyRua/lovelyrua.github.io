@@ -35,6 +35,12 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
+      - name: Upload build output for gh-pages
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: public/  # 替换成你的构建目录（如 dist/）
+
   deploy:
     needs: build
     permissions:
@@ -57,7 +63,11 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0  # 获取完整历史记录
-
+      - name: Download build output
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: public/  # 下载到 public/ 目录（或你的构建目录）
       - name: Set up Git
         run: |
           git config --global user.name "GitHub Actions"
@@ -69,8 +79,8 @@ jobs:
           git checkout --orphan gh-pages
           git reset --hard
 
-          # 复制构建后的文件（build/ 目录内容）
-          cp -r build/* ./
+          # 复制构建后的文件（public/ 目录内容）
+          cp -r public/* ./
 
           # 提交更改
           git add -A
