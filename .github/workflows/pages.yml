@@ -86,5 +86,5 @@ jobs:
 
           # 提交更改
           git add -A
-          git commit -m "Deploy to gh-pages: $(date +'%Y-%m-%d %H:%M:%S' (via GitHub Actions)"
+          git commit -m "Deploy to gh-pages: $(date +'%Y-%m-%d %H:%M:%S') (via GitHub Actions)"
           git push origin gh-pages --force
