@@ -69,7 +69,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-output
-          path: public/  # 下载到 public/ 目录（或你的构建目录）
+          path: ./  # 下载到 public/ 目录（或你的构建目录）
       - name: Set up Git
         run: |
           git config --global user.name "GitHub Actions"
@@ -80,9 +80,6 @@ jobs:
           # 切换到 gh-pages 分支（如果不存在则创建）
           git checkout --orphan gh-pages
           git reset --hard
-
-          # 复制构建后的文件（public/ 目录内容）
-          cp -r public/* ./
 
           # 提交更改
           git add -A
