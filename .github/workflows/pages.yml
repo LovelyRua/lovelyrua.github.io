@@ -69,7 +69,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-output
-          path: ./  # 下载到 public/ 目录（或你的构建目录）
+          path: ./
       - name: Set up Git
         run: |
           git config --global user.name "GitHub Actions"
